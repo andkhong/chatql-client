@@ -1,0 +1,29 @@
+    type Message {
+        id: ID!
+        createdAt: String
+        message: String
+    }
+    type Query {
+        allMessages: [Message]
+    }
+    type Mutation {
+        createMessage(message: String!): [Message]
+    }
+    type Subscription {
+        Message(filter: MessageSubscriptionFilter): MessageSubscriptionPayload
+      }
+      
+    input MessageSubscriptionFilter {
+        mutation_in: [_ModelMutationType!]
+    }
+    
+    type MessageSubscriptionPayload {
+        mutation: _ModelMutationType!
+        node: Message
+    }
+
+    enum _ModelMutationType {
+        CREATED
+        UPDATED
+        DELETED
+    }
